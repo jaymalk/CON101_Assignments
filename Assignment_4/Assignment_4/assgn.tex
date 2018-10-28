@@ -19,15 +19,15 @@
     \maketitle
     
     \begin{center}
-    \Large{\underline{\textbf{Euler Forward and Backward Fitting}}}
+    \Large{\underline{\textbf{Euler Forward and Backward Method}}}
     \end{center}
     \subsection*{Overview}
-    In this assignment, we were asked to use \textbf{\emph{Euler Fittings}} for approximating the characteristics of \textit{Damped Harmonic Oscillator}. With the help ideas discussed in the class, such as \textbf{Backward Fitting} and \textbf{Forward Fitting}, I was able to plot and see the relation between error and the time gap implemented.\\I used \texttt{Python} programming language for coding the assignment and the \texttt{matplotlib} module for plotting.
+    In this assignment, we were asked to use \textbf{\emph{Euler Methods}} for approximating the characteristics of \textit{Damped Harmonic Oscillator}. With the help ideas discussed in the class, such as \textbf{Backward Method} and \textbf{Forward Method}, I was able to plot and see the relation between error and the time gap implemented.\\I used \texttt{Python} programming language for coding the assignment and the \texttt{matplotlib} module for plotting.
     
     \pagebreak
-    \subsection*{Forward Fitting}
+    \subsection*{Forward Method}
     
-        Forward fitting works on the direct approximation of the instant next occurrence from the present one. The fitting uses following equations.
+        Forward Method works on the direct approximation of the instant next occurrence from the present one. The Method uses following equations.
                 \begin{center}
                 \(x(t+\delta t) = x(t) + \delta t*v(t)\) \\
                 \(v(t+\delta t) = v(t) + \delta t*a(t)\) \\
@@ -38,13 +38,13 @@
         Here, the dashed black line represents the actual (correct) function. I have used 10 different values of \(\delta t\) of the form \(\frac{1}{10 * 2^i}\), i ranging from (0-9) \\[20pt]
         \textit{Some observations are...} \\
              - The error is of diverging nature. (Approaches \(\infty\)) \\
-             - The energy is increasing using this method.
+             - The energy is increasing using this method. \\
              - The more is the value of \(\delta t\) the more is the curve diverging.
     
         \pagebreak
-        \subsection*{Backward Fitting}
+        \subsection*{Backward Method}
     
-        Backward fitting works by estimating the next occurrence by using the old occurrence for the same entity and next occurrences of all other entities.
+        Backward Method works by estimating the next occurrence by using the old occurrence for the same entity and next occurrences of all other entities.
                 \begin{center}
                 \(x(t+\delta t) = x(t) + \delta t*v(t + \delta t)\) \\
                 \(v(t+\delta t) = v(t) + \delta t*a(t + \delta t)\) \\
@@ -75,6 +75,6 @@
 
 
     \subsection*{Summary}
-    Using these methods, I understood the need of better fitting methods to map real life physical simulations. Overall, this assignment was an amazing experience. Regards. Thanks a lot!
+    Using these methods, I understood the need of better approximation methods to map real life physical simulations. Overall, this assignment was an amazing experience. Regards. Thanks a lot!
 
 \end{document}
