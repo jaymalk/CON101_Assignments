@@ -1,0 +1,71 @@
+ \documentclass{article}
+    \usepackage{amsmath}
+    \usepackage[utf8]{inputenc}
+    \usepackage[english]{babel}
+    \usepackage{color}
+ 
+    \setlength{\parindent}{4em}
+    \setlength{\parskip}{1em}
+\renewcommand{\baselinestretch}{1.5}
+    \usepackage{graphicx}
+    
+    \title{Assignment 3}
+    \author{Rajbir Malik \\ 2017CS10416}
+    
+    \begin{document}
+    
+    \maketitle
+    
+    \begin{center}
+    \Large{\underline{\textbf{Naive-Bayes for Classification}}}
+    \end{center}
+    \subsection*{Overview}
+    In this assignment, we were asked to used \textbf{\emph{Naive Bayes}} to differentiate between the context of articles, having two possible categories. With the help ideas discussed in the class, such as \textbf{Bayes' Theorem} and \textbf{Probability Smoothing}, I was able to achieve a decent accuracy, with max-error being approximately \textbf{3\%}\\I used \emph{Python} programming language for coding the assignment. The details of the code are discussed next.
+    
+    \pagebreak
+    \subsection*{Code Details}
+    
+    \begin{itemize}
+        \item \textbf{Imports}
+            \begin{itemize}
+                \item random.randint
+                \item math.log2
+            \end{itemize}
+        \item \textbf{Functions}
+        \begin{center}
+            \begin{itemize}
+                \item \texttt{main} \\
+                The main function takes the text file, using the file handling methods, and then randomly generates 5 sets containing the lines, by randomly \emph{poping} out lines. The sizes of these lines are 4x399 and 1x397.\\
+                After the sets have been generated, the \texttt{random\_generator} function is used to create the training sets and one test set. \\ Now, the sets (4) from training set are used by \texttt{generate\_dictionary} to generate two dictionaries, \texttt{hockey} and \texttt{baseball}, which keep the count/frequencies of all the words contained in respective articles.
+                \item \texttt{random\_division} \\
+                This function randomly divides the sets, into two parts by popping, leaving out one random set in the end.
+                \item \texttt{generate\_dictionary} \\
+                This function takes in one of the training sets and preexisting dictionary (new, or one containing data from previous sets), then modifies those dictionaries by adding and checking for further occurrence of  words in this set.
+                \item \texttt{test\_case} \\
+                This function uses \texttt{naive\_bayes\_guess} to test the test\_set by using statistical information from the generated dictionaries,  \texttt{hockey} and \texttt{baseball}. It returns a string, giving the correctness information on our guess for each item in the set.
+                \item \texttt{naive\_bayes\_guess} \\
+                This function takes an article/line and makes a statistical guess on the basis of knowledge from training sets. Here, we apply \emph{Bayes' Theorem} on each word, as follows. \\
+                \begin{center}
+                    \(P(hockey \mid word) = \dfrac{P(word \mid hockey)*P(hockey)}{P(word)}\)
+                \end{center}
+                And, now we can define, the terms on R.H.S as follows.
+                \vspace{+5mm}
+                \begin{itemize}
+                    \item \(P(word\mid hockey)\) = \(\dfrac{\texttt{hockey[word]}+\textcolor{red}{\textbf{1}}}{(\sum_{}^{}\texttt{hockey[keys]})+\textcolor{red}{\textbf{2}}}\) \\[2mm]
+                    {\scriptsize \emph{     here, we are using 0 as the default value and red colored values for \textbf{smoothing} \\}.}
+                    \item \(P(hockey) = \dfrac{N(\text{hockey in training set})}{N(\text{total lines in training set})}\) \ \\[5mm] 
+                    \item \(P(word)\) = \(\dfrac{\texttt{hockey[word]}+\texttt{baseball[word]}+\textcolor{red}{\textbf{1}}}{(\sum_{}^{}\texttt{hockey[keys]})+(\sum_{}^{}\texttt{baseball[keys]})+\textcolor{red}{\textbf{2}}}\)
+                \end{itemize}
+                \  \\[5mm]Having all the values now, all we have to do if calculate \\
+                \begin{center}
+                    \(chances(hockey) = \sum_{line}(\texttt{log}(P(hockey\mid word_i))\)
+                \end{center}
+                And, if \(chances(hockey)\ \mathcal{>} \  chances(baseball)\), then our guess becomes \textbf{hockey}, otherwise \textbf{baseball}.
+            \end{itemize}
+        \end{center}
+    \end{itemize}
+    
+    \subsection*{Summary}
+    Using the above methods, I was able to get decent accuracy. On the provided data, my accuracy ranged from 97\%-99\%, but it was never 100\%. This was a bit disappointing. But, overall, this assignment was an amazing experience. Regards. Thanks a lot!
+
+\end{document}
