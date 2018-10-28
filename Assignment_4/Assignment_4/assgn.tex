@@ -3,7 +3,9 @@
     \usepackage[utf8]{inputenc}
     \usepackage[english]{babel}
     \usepackage{color}
- 
+    \usepackage{graphicx}
+    \usepackage{enumitem}
+    
     \setlength{\parindent}{4em}
     \setlength{\parskip}{1em}
 \renewcommand{\baselinestretch}{1.5}
@@ -20,68 +22,53 @@
     \Large{\underline{\textbf{Euler Forward and Backward Fitting}}}
     \end{center}
     \subsection*{Overview}
-    In this assignment, we were asked to use \textbf{\emph{Euler Fittings}} for approximating the characteristics of \textit{Damped Harmonic Oscillator}. With the help ideas discussed in the class, such as \textbf{Backward Fitting} and \textbf{Forward Fitting}, I was able to plot and see the relation between error and the time gap implemented.\\I used \emph{Python} programming language for coding the assignment and the \texttt{matplotlib} module for plotting.
+    In this assignment, we were asked to use \textbf{\emph{Euler Fittings}} for approximating the characteristics of \textit{Damped Harmonic Oscillator}. With the help ideas discussed in the class, such as \textbf{Backward Fitting} and \textbf{Forward Fitting}, I was able to plot and see the relation between error and the time gap implemented.\\I used \texttt{Python} programming language for coding the assignment and the \texttt{matplotlib} module for plotting.
     
     \pagebreak
-    \subsection*{Code Details}
+    \subsection*{Forward Fitting}
     
-    \begin{itemize}
-        \item \textbf{Imports}
-            \begin{itemize}
-                \item random.randint
-                \item math.log2
-            \end{itemize}
-        \item \textbf{Functions}
-        \begin{center}
+        Forward fitting works on the direct approximation of the instant next occurrence from the present one. The fitting uses following equations.
                 \begin{center}
-                    \(P(hockey \mid word) = \dfrac{P(word \mid hockey)*P(hockey)}{P(word)}\)
+                \(x(t+\delta t) = x(t) + \delta t*v(t)\) \\
+                \(v(t+\delta t) = v(t) + \delta t*a(t)\) \\
+                \(a(t) = - k*x(t) - c*v(t)\) \\
                 \end{center}
-                And, now we can define, the terms on R.H.S as follows.
-                \vspace{+5mm}
-                \begin{itemize}
-                    \item \(P(word\mid hockey)\) = \(\dfrac{\texttt{hockey[word]}+\textcolor{red}{\textbf{1}}}{(\sum_{}^{}\texttt{hockey[keys]})+\textcolor{red}{\textbf{2}}}\) \\[2mm]
-                    {\scriptsize \emph{     here, we are using 0 as the default value and red colored values for \textbf{smoothing} \\}.}
-                    \item \(P(hockey) = \dfrac{N(\text{hockey in training set})}{N(\text{total lines in training set})}\) \ \\[5mm] 
-                    \item \(P(word)\) = \(\dfrac{\texttt{hockey[word]}+\texttt{baseball[word]}+\textcolor{red}{\textbf{1}}}{(\sum_{}^{}\texttt{hockey[keys]})+(\sum_{}^{}\texttt{baseball[keys]})+\textcolor{red}{\textbf{2}}}\)
-                \end{itemize}
-                \  \\[5mm]Having all the values now, all we have to do if calculate \\
-                \begin{center}
-                    \(chances(hockey) = \sum_{line}(\texttt{log}(P(hockey\mid word_i))\)
-                \end{center}
-                And, if \(chances(hockey)\ \mathcal{>} \  chances(baseball)\), then our guess becomes \textbf{hockey}, otherwise \textbf{baseball}.
-        \end{center}
-    \end{itemize}
+        Now, using these equations in iterative manner, I was able to get the following graph. \\
+        \includegraphics[scale=.25]{../Forward.png} \\
+        Here, the dashed black line represents the actual (correct) function. I have used 10 different values of \(\delta t\) of the form \(\frac{1}{10 * 2^i}\), i ranging from (0-9) \\[20pt]
+        \textit{Some observations are...} \\
+             - The error is of diverging nature. (Approaches \(\infty\)) \\
+             - The more is the value of \(\delta t\) the more is the curve diverging.
     
-    \pagebreak
-    \subsection*{Code Details}
+        \pagebreak
+        \subsection*{Backward Fitting}
     
-    \begin{itemize}
-        \item \textbf{Imports}
-            \begin{itemize}
-                \item random.randint
-                \item math.log2
-            \end{itemize}
-        \item \textbf{Functions}
-        \begin{center}
+        Backward fitting works by estimating the next occurrence by using the old occurrence for the same entity and next occurrences of all other entities.
                 \begin{center}
-                    \(P(hockey \mid word) = \dfrac{P(word \mid hockey)*P(hockey)}{P(word)}\)
+                \(x(t+\delta t) = x(t) + \delta t*v(t + \delta t)\) \\
+                \(v(t+\delta t) = v(t) + \delta t*a(t + \delta t)\) \\
+                \(a(t) = - k*x(t) - c*v(t)\) \\
                 \end{center}
-                And, now we can define, the terms on R.H.S as follows.
-                \vspace{+5mm}
-                \begin{itemize}
-                    \item \(P(word\mid hockey)\) = \(\dfrac{\texttt{hockey[word]}+\textcolor{red}{\textbf{1}}}{(\sum_{}^{}\texttt{hockey[keys]})+\textcolor{red}{\textbf{2}}}\) \\[2mm]
-                    {\scriptsize \emph{     here, we are using 0 as the default value and red colored values for \textbf{smoothing} \\}.}
-                    \item \(P(hockey) = \dfrac{N(\text{hockey in training set})}{N(\text{total lines in training set})}\) \ \\[5mm] 
-                    \item \(P(word)\) = \(\dfrac{\texttt{hockey[word]}+\texttt{baseball[word]}+\textcolor{red}{\textbf{1}}}{(\sum_{}^{}\texttt{hockey[keys]})+(\sum_{}^{}\texttt{baseball[keys]})+\textcolor{red}{\textbf{2}}}\)
-                \end{itemize}
-                \  \\[5mm]Having all the values now, all we have to do if calculate \\
+        These equations combined lead to these two simultaneous linear equations.
                 \begin{center}
-                    \(chances(hockey) = \sum_{line}(\texttt{log}(P(hockey\mid word_i))\)
+                \(x(t+\delta t) - \delta t*v(t + \delta t) = x(t)\) \\
+                \(k*\delta t*x(t+\delta t) + (1+c*\delta t)*v(t+\delta t) = v(t)\) \\
                 \end{center}
-                And, if \(chances(hockey)\ \mathcal{>} \  chances(baseball)\), then our guess becomes \textbf{hockey}, otherwise \textbf{baseball}.
-        \end{center}
-    \end{itemize}
-    
+        Solving these we get the follwing.
+                \begin{center}
+                \(v(t + \delta t) = \dfrac{v(t) - k*\delta t*x(t)}{k*\delta t^2 + c*\delta t + 1}\) \\[10pt]
+                \(x(t+\delta t) = \dfrac{v(t)*\delta t + (c*\delta t + 1)*x(t)}{k*\delta t^2 + c*\delta t + 1}\) \\
+                \end{center}
+        We may also define  \(div_t = k*\delta t^2 + c*\delta t + 1\) since it only depends on \(\delta t\) and is constant for one complete itertation. 
+        \pagebreak
+        Now, using these equations in iterative manner, I was able to get the following graph. \\
+        \includegraphics[scale=.25]{../Backward.png} \\
+        Here, the dashed black line represents the actual (correct) function. I have used 10 different values of \(\delta t\) of the form \(\frac{1}{10 * 2^i}\), i ranging from (0-9) \\[20pt]
+        \textit{Some observations are...} \\
+             - The error is of converging nature. (Approaches some constant value. (Here, 1)) \\
+             - The more is the value of \(\delta t\) the more is the curve converging (to 1).
+
+
     \subsection*{Summary}
     Using the above methods, I was able to get decent accuracy. On the provided data, my accuracy ranged from 97\%-99\%, but it was never 100\%. This was a bit disappointing. But, overall, this assignment was an amazing experience. Regards. Thanks a lot!
 
