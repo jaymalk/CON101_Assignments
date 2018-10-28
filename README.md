@@ -8,4 +8,4 @@
 - Report on **GeoHash**  (Concept : *Space Filling Curves*)
 - Report on **Personalised Inverted Index** (Concept: *Indexing*)
 - Implementing **Näive Bayes** (Concept: *Basic Machine Learning*)
-- Implementing  **(Euler) Forward and Backward Fitting** (Concept: *Curve Fitting and Approximation for Physical Simulation*)
+- Implementing  **(Euler) Forward and Backward Method** (Concept: *Approximation and Fitting for Physical Simulation*)
