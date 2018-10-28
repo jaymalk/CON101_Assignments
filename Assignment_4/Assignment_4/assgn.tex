@@ -38,6 +38,7 @@
         Here, the dashed black line represents the actual (correct) function. I have used 10 different values of \(\delta t\) of the form \(\frac{1}{10 * 2^i}\), i ranging from (0-9) \\[20pt]
         \textit{Some observations are...} \\
              - The error is of diverging nature. (Approaches \(\infty\)) \\
+             - The energy is increasing using this method.
              - The more is the value of \(\delta t\) the more is the curve diverging.
     
         \pagebreak
@@ -59,17 +60,21 @@
                 \(v(t + \delta t) = \dfrac{v(t) - k*\delta t*x(t)}{k*\delta t^2 + c*\delta t + 1}\) \\[10pt]
                 \(x(t+\delta t) = \dfrac{v(t)*\delta t + (c*\delta t + 1)*x(t)}{k*\delta t^2 + c*\delta t + 1}\) \\
                 \end{center}
-        We may also define  \(div_t = k*\delta t^2 + c*\delta t + 1\) since it only depends on \(\delta t\) and is constant for one complete itertation. 
-        \pagebreak
+        We may also define  \(div_t = k*\delta t^2 + c*\delta t + 1\) since it only depends on \(\delta t\) and is constant for one complete iteration. Thus, final answer becomes...
+        \begin{center}
+            \(v(t + \delta t) = \dfrac{v(t) - k*\delta t*x(t)}{div_t}\) \\[10pt]
+                \(x(t+\delta t) = \dfrac{v(t)*\delta t + (c*\delta t + 1)*x(t)}{div_t}\) \\
+        \end{center}
+        {\pagebreak}
         Now, using these equations in iterative manner, I was able to get the following graph. \\
         \includegraphics[scale=.25]{../Backward.png} \\
         Here, the dashed black line represents the actual (correct) function. I have used 10 different values of \(\delta t\) of the form \(\frac{1}{10 * 2^i}\), i ranging from (0-9) \\[20pt]
         \textit{Some observations are...} \\
-             - The error is of converging nature. (Approaches some constant value. (Here, 1)) \\
-             - The more is the value of \(\delta t\) the more is the curve converging (to 1).
+             - The energy is decreasing using this method. \\
+             - The more is the value of \(\delta t\) the faster (w.r.t time) is the convergence. (to 1).
 
 
     \subsection*{Summary}
-    Using the above methods, I was able to get decent accuracy. On the provided data, my accuracy ranged from 97\%-99\%, but it was never 100\%. This was a bit disappointing. But, overall, this assignment was an amazing experience. Regards. Thanks a lot!
+    Using these methods, I understood the need of better fitting methods to map real life physical simulations. Overall, this assignment was an amazing experience. Regards. Thanks a lot!
 
 \end{document}
